@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Wesley Cramblitt</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script>
+          $.fn.serializeObject = function() {
+                var o = {};
+                var a = this.serializeArray();
+                $.each(a, function() {
+                    if (o[this.name]) {
+                        if (!o[this.name].push) {
+                            o[this.name] = [o[this.name]];
+                        }
+                        o[this.name].push(this.value || '');
+                    } else {
+                        o[this.name] = this.value || '';
+                    }
+                });
+                return o;
+            };
+        $(function () {
+            $("#contactBtn").click(function () {
+
+                var f = $("#contactForm").serialize();
+                console.log(f);
+                $.ajax(
+                    {
+                        url: "http://localhost:3000/email",
+                        data: f,
+                        type: "POST",
+                        contentType: "application/x-www-form-urlencoded; charset=UTF-8", // this is the default value, so it's optional
+                        success: function (res) {
+                            alert("Success");
+                        },
+                        error: function (xhr, status, error) {
+                            alert("Email unsuccessful: "+ error);
+                        }
+                    }
+                );
+
+            });
+
+            $('#dbzOpen').click(function(){
+                main();
+                keepAnimating = true;
+            });
+
+            $("#dbzClose").click(function () {
+                keepAnimating = false;
+            })
+        });
+
+        
+
+        $(document).on('click', function (event) {
+            var $clickedOn = $(event.target),
+                $collapsableItems = $('.collapse'),
+                isToggleButton = ($clickedOn.closest('.navbar-toggle').length == 1),
+                isLink = ($clickedOn.closest('a').length == 1),
+                isOutsideNavbar = ($clickedOn.parents('.navbar').length == 0);
+            if (isLink && !isOutsideNavbar) {
+                $navUL = $clickedOn.parent().parent();
+
+                $navUL.children().each(function () {
+
+                    $(this).removeClass("active");
+                })
+                $clickedOn.parent().addClass('active');
+            }
+            if ((!isToggleButton && isLink) || isOutsideNavbar) {
+                $collapsableItems.each(function () {
+                    $(this).collapse('hide');
+
+                });
+            }
+        });
+
+        window.onscroll = function () {
+            if (document.body.scrollTop >
+                document.getElementById("Contact").getBoundingClientRect().top) {
+                    $("#navList").children().each(function () {
+                        $(this).removeClass("active");
+                    })
+                    $("#contactNav").addClass("active");
+                    return;
+            }
+            if (document.body.scrollTop >
+                document.getElementById("Portfolio").getBoundingClientRect().top) {
+                    console.log(document.getElementById("Portfolio").getBoundingClientRect().top);
+                    $("#navList").children().each(function () {
+                        $(this).removeClass("active");
+                    })
+                    $("#portfolioNav").addClass("active");
+                    return;
+            }
+            if (document.body.scrollTop >
+                document.getElementById("About").getBoundingClientRect().top) {
+                    $("#navList").children().each(function () {
+                        $(this).removeClass("active");
+                    })
+                    $("#aboutNav").addClass("active");
+                    return;
+            }
+            if (document.body.scrollTop >=
+                document.getElementById("Home").getBoundingClientRect().top) {
+                    $("#navList").children().each(function () {
+                        $(this).removeClass("active");
+                    })
+                    $("#homeNav").addClass("active");
+                    return;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark darkNavbar">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul id="navList" class="navbar-nav mr-auto center">
+                <li id="homeNav" class="nav-item active">
+                    <a class="nav-link" href="#Home">Home</a>
+                </li>
+                <li id="aboutNav" class="nav-item">
+                    <a class="nav-link" href="#About">About</a>
+                </li>
+                <li id="portfolioNav" class="nav-item">
+                    <a class="nav-link" href="#Portfolio">Portfolio</a>
+                </li>
+                <li id="contactNav" class="nav-item">
+                    <a class="nav-link" href="#Contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="Home">
+        <div style="padding-top:8em;text-align:center">
+            <h1>Wesley Cramblitt</h1>
+            <p style="margin-bottom:3em">Full stack developer</p>
+            <input type="button" class="btn redButton" value="Get in touch" style="padding-left:1em; 
+            padding-right:1em; padding-bottom:0.8em; padding-top:0.8em;font-size:1.2em; "
+                onclick="location.href='#Contact'" />
+            <a type="submit" class="btn blueButton" style="padding-left:0.5em; 
+            padding-right:0.5em; padding-bottom:0.8em; padding-top:0.8em;font-size:1.2em;"
+            href="docs/resume.pdf" download>Resume</a>
+        </div>
+    </section>
+    <section id="About" style="margin-bottom:6em">
+        <p style="text-align:center;margin-left:10%;font-size:1.2em;padding-top:4em;line-height:2em;
+        margin-bottom:2em; width:80%">
+            My name is Wesley Cramblitt, and I've been programming
+            for over 10 years. I'm a full stack developer and my strongest languages are C# and Javascript. 
+        </p>
+        <div class="row" style="text-align: center;">
+            <div class="offset-md-1 col-md-10 col-lg-5 offset-lg-1">
+                <div style="margin:0.3em; margin-top:0.5em; background-color:#FFF" class="card">
+                    <h2 style="margin-top:0.5em">Full stack development</h2>
+                    <div style="padding:1em">
+                        <div style="padding-bottom:1em; padding-right: 0.5em; padding-left:0.5em">I have 5 years of
+                            experience creating websites from the ground up.</div>
+                        <h5>Preferred Backend Technologies</h5>
+                        <ul>
+                            <li>ASP.NET MVC, Web API - MSSQL</li>
+                            <li>Node with Express - Mongo</li>
+                        </ul>
+                        <h5>Preferred Frontend Technologies</h5>
+                        <ul>
+                            <li>React</li>
+                            <li>JQuery</li>
+                            <li>HTML5</li>
+                            <li>CSS3</li>
+                            <li>Canvas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="offset-md-1 offset-lg-0 col-md-10 col-lg-5">
+                <div style="margin:0.3em; margin-top:0.5em; background-color:#FFF" class="card">
+                    <h2 style="margin-top:0.5em">Scripts and Utilities</h2>
+                    <div style="padding:0.5em">
+                        <div style="padding-bottom:1em; padding-right: 0.5em; padding-left:0.5em">I enjoy writing
+                            scripts to solve problems. For example, needing to migrate data
+                            from a legacy system or needing a quick patch to a bug. </div>
+                        <h5>Focus areas</h5>
+                        <ul>
+                            <li>Data migration</li>
+                            <li>Data visualization</li>
+                            <li>2 dimensional games</li>
+                            <li>Troubleshooting/Bug fixes</li>
+                        </ul>
+                        <h5>Languages I speak</h5>
+                        <ul>
+                            <li>Javascript</li>
+                            <li>C#</li>
+                            <li>Python </li>
+                            <li>Java</li>
+                            <li>PHP</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="Portfolio" style="background-color:#333; padding-bottom: 3em ">
+        <div class="container-fluid" style="padding-top:5em">
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <div class="card" style="margin:1em">
+                        <img class="card-img-top" src="img/portfolio/simplegrid/simplegrid.PNG" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Simple Grid</h5>
+                            <h6><strong>Technology: </strong>Raw Javascript, .NET Core Web API</h6>
+                            <p class="card-text">
+                                Simple Grid is a utility I created for myself out of need to quickly seed data into a new database.
+                                Once configured, the program intelligently generates Grids with CRUD operations connected to a REST API. 
+                            </p>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="card" style="margin:1em">
+                        <img class="card-img-top" src="img/portfolio/changetracker/changetracker.PNG" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Change Tracker</h5>
+                            <h6><strong> Technology: </strong>Javascript, Kendo UI (for integration)</h6>
+                            <p class="card-text">
+                                Created for Dorger Software Architects and officially their product, Change Tracker is a version control utility 
+                                for the Kendo editor. I created it using raw javascript and manipulating the DOM API.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="card" style="margin:1em">
+                        <img class="card-img-top" src="img/portfolio/history360/history360.PNG" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">History 360</h5>
+                            <h6><strong>Technology:</strong> Javascript, PHP </h6>
+                            
+                            <p class="card-text">
+                                History 360 was a prototype for a friend of mine interested in creating a history database with 
+                                an interactive map. This prototype contains a few events located in the areas in which they happened 
+                                in the world with dynamically opening tabs displaying information about the event.
+
+                            </p>
+                            <a href="#" class="btn btn-primary"  data-toggle="modal" data-target="#360Modal">Demo</a>
+                            <span style="color:red">**Not for mobile devices**</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="card" style="margin:1em">
+                        <img class="card-img-top" src="img/portfolio/hourglass/hourglass.PNG" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Hourglass</h5>
+                            <h6><strong>Technology: </strong>PHP MySQL Javascript Knockout</h6>
+                            <p class="card-text">
+                                Hourglass is a time management system created for a friend of mine to help track his time for various 
+                                clients. 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="card" style="margin:1em">
+                        <img class="card-img-top" src="img/portfolio/dmt/datamigrationtool.JPG" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Data Migration Tool</h5>
+                            <h6><strong>Technology: </strong>C# WPF MSSQL</h6>
+                            <p class="card-text">
+                                The data migration tool, now Envista's product, enables clients with legacy ERP systems to 
+                                quickly and efficienty migrate data into Microsoft Axapta's database. 
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-5">
+                    <div class="card" style="margin:1em">
+                        <img class="card-img-top" src="img/portfolio/mdad/mdad.PNG" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">MDAD</h5>
+                            <h6><strong>Technology: </strong>ASP.Net Web Forms (C#) Javascript Jquery</h6>
+                            <p class="card-text">
+                                Medium sized database website for analyzing court case data and statistics in Mississippi. This was a two year project 
+                                I completed in school after partnering with my brother, an Attorney, and creating an llc called MDAD. The website 
+                                performed well, but we didn't have a good marketing process in place and discontinued the site.
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="card" style="margin:1em">
+                        <img class="card-img-top" src="img/portfolio/webgraphicsproject/webgraphicsproject.PNG" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Dragon Ball Z game</h5>
+                            <h6><strong>Technology: </strong>Javascript, Canvas</h6>
+                            <p class="card-text">
+                                Two-dimensional canvas game I made for a web graphics project. Play it in the demo below:
+                            </p>
+                            <a id="dbzOpen" style="color:white" class="btn btn-primary" data-toggle="modal" data-target="#dbzModal">Demo</a>
+                            <span style="color:red">**Not for mobile devices**</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="360Modal" tabindex="-1" role="dialog" 
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="width:100%; min-height: 900px; max-width: 100%;" role="document" >
+            <div class="modal-content" style="width:100%; min-height:900px">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">History 360</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <iframe id="myIframe" style="width:100%; height:100%" src="demos/history360/index.html"></iframe>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="modal fade" id="dbzModal" tabindex="-1" role="dialog" 
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="width:100%; min-height: 600px; max-width: 100%;" role="document" >
+            <div class="modal-content" style="width:100%; min-height:600px">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">History 360</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <h6>Controls</h6>
+                    <p>Enter: start, p: power up, b: blast, arrow keys: movement</p>
+                        <canvas id="canvas" width="900" height="400" style="border:1px solid #000000;">
+                        </canvas> 
+                        <audio id="theme" src='demos/dbz/sounds/HellsBells.wav' style="display:none;"/>
+                        <audio id="soundTeleport" src="demos/dbz/sounds/teleport.wav" style="display: none;"></audio>
+                        <!--<audio id="soundStartPowerup" src="sounds/powerup.wav" style="display: none;"></audio>-->
+                        <audio id="soundPowerup" src="demos/dbz/sounds/powerup.wav" style="display: none;"></audio>
+                        <audio id="blast1" src="demos/dbz/sounds/eyebeam_fire.wav" style="display: none;"></audio>	
+                        <audio id="burst" src="demos/dbz/sounds/burst.wav" style="display: none;"></audio>	
+                        <script src="demos/dbz/Vegeta.js"></script>
+                </div>
+                <div class="modal-footer">
+                <button id="dbzClose" type="button" style="color:white" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+    <section id="Contact" style="padding-bottom:1000px">
+        <form id="contactForm">
+            <div class="container" style="padding-top: 5em">
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-3">
+                        <h2 style="text-align: center">Contact Me</h2>
+                        <p style="text-align: center">I usually respond within 24 hours</p>
+                        <div class="form-group">
+                            <input id="name" name="name" type="text" class="form-control" placeholder="Name..." />
+                        </div>
+                        <div class="form-group">
+                            <input id="email" name="email" type="text" class="form-control" placeholder="Email..." />
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" name="message" id="message" placeholder="Message..."></textarea>
+                        </div>
+                        <button id="contactBtn" type="button" class="btn redButton col-12">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+    </div>
+</body>
+
+
+</html>
