@@ -38,10 +38,10 @@
             $("#contactBtn").click(function () {
 
                 var f = $("#contactForm").serialize();
-                console.log(f);
+
                 $.ajax(
                     {
-                        url: "http://localhost:3000/email",
+                        url: "email",
                         data: f,
                         type: "POST",
                         contentType: "application/x-www-form-urlencoded; charset=UTF-8", // this is the default value, so it's optional

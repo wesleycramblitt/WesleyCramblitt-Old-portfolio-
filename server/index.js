@@ -10,19 +10,23 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
+  const path = require("path");
+
+  app.use(express.static(path.join(__dirname, '../client')));
 
 //var db = require("./db");
 
-// app.get('/all', function(req, res) {
-//     var collection = db.get().collection('posts')
-  
-//     collection.find().toArray(function(err, docs) {
-//         res.status(500);
-//         res.json({
-//           posts: docs
-//         });
-//     })
-//   })
+ app.get('/', function(req, res) {
+    //     var collection = db.get().collection('posts')
+    
+    //     collection.find().toArray(function(err, docs) {
+    //         res.status(500);
+    //         res.json({
+    //           posts: docs
+    //         });
+    //     })
+    res.sendFile(path.join(__dirname, '../client', 'index.html'));
+   })
 
 app.post('/email', function(req,res) {
     try
