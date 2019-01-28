@@ -91,7 +91,7 @@ h2 {
     rgba(0, 0, 0, 0.5), 
     rgba(0, 0, 0, 0.5)
   ),
-  url('../img/coffee.PNG') top right no-repeat ;
+  url('../img/coffee.png') top right no-repeat ;
   background-size: cover;
   
   color: #FFF;
