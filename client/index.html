@@ -92,7 +92,7 @@
         });
 
         window.onscroll = function () {
-            if (document.body.scrollTop >
+            if (document.body.scrollTop >=
                 document.getElementById("Contact").getBoundingClientRect().top) {
                     $("#navList").children().each(function () {
                         $(this).removeClass("active");
@@ -100,7 +100,7 @@
                     $("#contactNav").addClass("active");
                     return;
             }
-            if (document.body.scrollTop >
+            if (document.body.scrollTop >=
                 document.getElementById("Portfolio").getBoundingClientRect().top) {
                     //console.log(document.getElementById("Portfolio").getBoundingClientRect().top);
                     $("#navList").children().each(function () {
@@ -109,7 +109,7 @@
                     $("#portfolioNav").addClass("active");
                     return;
             }
-            if (document.body.scrollTop >
+            if (document.body.scrollTop >=
                 document.getElementById("About").getBoundingClientRect().top) {
                     $("#navList").children().each(function () {
                         $(this).removeClass("active");
@@ -150,6 +150,9 @@
                 </li>
                 <li id="contactNav" class="nav-item">
                     <a class="nav-link" href="#Contact">Contact</a>
+                </li>
+                <li id="blog" class="nav-item">
+                    <a class="nav-link" href="https://wesleycramblitt.000webhostapp.com/">Blog</a>
                 </li>
             </ul>
         </div>
@@ -226,6 +229,18 @@
     <section id="Portfolio" style="background-color:#333; padding-bottom: 3em ">
         <div class="container-fluid" style="padding-top:5em">
             <div class="row justify-content-center">
+            <div class="col-lg-5">
+                    <div class="card" style="margin:1em">
+                        <img class="card-img-top" src="img/portfolio/wesleycramblitt/wesleycramblitt.PNG" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Wesley Cramblitt</h5>
+                            <h6><strong>Technology: </strong>Jquery, Bootstrap, Node, and Express</h6>
+                            <p class="card-text">
+                                A simple personal site to showcase my portfolio and experiment with node and express.
+                             </p>
+                                                  </div>
+                    </div>
+                </div>
                 <div class="col-lg-5">
                     <div class="card" style="margin:1em">
                         <img class="card-img-top" src="img/portfolio/simplegrid/simplegrid.PNG" alt="Card image cap">
@@ -236,7 +251,7 @@
                                 Simple Grid is a utility I created for myself out of need to quickly seed data into a new database.
                                 Once configured, the program intelligently generates Grids with CRUD operations connected to a REST API. 
                             </p>
-                            
+                            <a class="btn btn-primary" href="https://github.com/wesleycramblitt/WesUI" target="_blank" >View Code</a>
                         </div>
                     </div>
                 </div>
@@ -281,6 +296,7 @@
                                 Hourglass is a time management system created for a friend of mine to help track his time for various 
                                 clients. 
                             </p>
+                            <a href="https://github.com/wesleycramblitt/hourglass" target="_blank" class="btn btn-primary" >View Code</a>
                         </div>
                     </div>
                 </div>
